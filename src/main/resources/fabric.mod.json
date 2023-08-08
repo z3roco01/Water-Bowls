@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"id": "water_bowls",
+	"version": "${version}",
+	"name": "Water Bowls",
+	"description": "Adds water bowls and honey bowls",
+	"authors": [
+		"z3roco01"
+	],
+	"contact": {
+	},
+	"license": "Unlicense",
+	"icon": "assets/water_bowls/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"z3roco01.waterBowls.WaterBowls"
+		]
+	},
+	"mixins": [
+		"water_bowls.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	},
+	"accessWidener": "water_bowls.accesswidener"
+}

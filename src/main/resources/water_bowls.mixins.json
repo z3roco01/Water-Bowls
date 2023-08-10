@@ -3,7 +3,8 @@
 	"package": "z3roco01.waterBowls.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"HoneyBottleItemMixin"
+		"HoneyBottleItemMixin",
+		"BeeHiveBlockMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -1,10 +1,7 @@
 package z3roco01.waterBowls.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.FoodComponents;
-import net.minecraft.item.HoneyBottleItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 

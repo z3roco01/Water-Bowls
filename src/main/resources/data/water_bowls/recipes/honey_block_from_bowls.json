@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "BB",
+        "BB"
+    ],
+    "key": {
+        "B": {
+            "item": "water_bowls:honey_bowl"
+        }
+    },
+    "result": {
+        "item": "minecraft:honey_block",
+        "count": 1
+    }
+}

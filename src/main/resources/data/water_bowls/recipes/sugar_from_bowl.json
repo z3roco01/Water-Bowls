@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "water_bowls:honey_bowl"
+        }
+    ],
+    "result": {
+        "item": "minecraft:sugar",
+        "count": 1
+    }
+}

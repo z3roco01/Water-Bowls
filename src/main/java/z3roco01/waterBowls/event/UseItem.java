@@ -6,6 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -13,6 +15,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import z3roco01.waterBowls.item.RegisterItems;
 
 public class UseItem {
@@ -28,6 +31,9 @@ public class UseItem {
         if(hitResult.getType() == HitResult.Type.BLOCK) {
             BlockPos pos = hitResult.getBlockPos();
             if(world.getFluidState(pos).isIn(FluidTags.WATER)) {
+                world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+                world.emitGameEvent(player, GameEvent.FLUID_PICKUP, hitResult.getBlockPos());
+
                 handStack.decrement(1);
                 ItemStack waterBowlItemStack = new ItemStack(RegisterItems.WATER_BOWL);
                 player.getInventory().offerOrDrop(waterBowlItemStack);

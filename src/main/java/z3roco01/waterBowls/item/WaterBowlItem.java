@@ -1,9 +1,10 @@
-package z3roco01.waterBowls.event;
+package z3roco01.waterBowls.item;
 
-import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.sound.SoundCategory;
@@ -16,30 +17,26 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import z3roco01.waterBowls.item.RegisterItems;
 
-public class UseItem {
-    public static void register() {
-        UseItemCallback.EVENT.register(UseItem::event);
+public class WaterBowlItem extends Item {
+    public WaterBowlItem(Settings settings) {
+        super(settings);
     }
 
-    private static TypedActionResult event(PlayerEntity player, World world, Hand hand) {
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         ItemStack handStack = player.getStackInHand(hand);
-        if(player.isSpectator() || handStack.getItem() != Items.BOWL) return TypedActionResult.pass(handStack);
+
+        if(player.isSpectator()) return TypedActionResult.pass(handStack);
 
         BlockHitResult hitResult = Item.raycast(world, player, RaycastContext.FluidHandling.WATER);
         if(hitResult.getType() == HitResult.Type.BLOCK) {
             BlockPos pos = hitResult.getBlockPos();
             if(world.getFluidState(pos).isIn(FluidTags.WATER)) {
-                world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0f, 1.0f);
-                world.emitGameEvent(player, GameEvent.FLUID_PICKUP, hitResult.getBlockPos());
+                world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+                world.emitGameEvent(player, GameEvent.FLUID_PICKUP, pos);
 
-                if(!player.isCreative())
-                    handStack.decrement(1);
-                ItemStack waterBowlItemStack = new ItemStack(RegisterItems.WATER_BOWL);
-                player.getInventory().offerOrDrop(waterBowlItemStack);
-
-                return TypedActionResult.success(waterBowlItemStack);
+                return TypedActionResult.success(ItemUsage.exchangeStack(handStack, player, new ItemStack(Items.BOWL, 1)));
             }
         }
 

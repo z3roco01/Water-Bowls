@@ -6,7 +6,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -25,7 +24,7 @@ public class UseItem {
         ItemStack handStack = player.getStackInHand(hand);
         if(player.isSpectator() || handStack.getItem() != Items.BOWL) return TypedActionResult.pass(handStack);
 
-        BlockHitResult hitResult = Item.raycast(world, player, RaycastContext.FluidHandling.SOURCE_ONLY);
+        BlockHitResult hitResult = Item.raycast(world, player, RaycastContext.FluidHandling.WATER);
         if(hitResult.getType() == HitResult.Type.BLOCK) {
             BlockPos pos = hitResult.getBlockPos();
             if(world.getFluidState(pos).isIn(FluidTags.WATER)) {
